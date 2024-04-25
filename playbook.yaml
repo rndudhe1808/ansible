@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Ensure Apache is installed
+      package:
+        name: apache2
+        state: present
+    # Add more tasks as needed
