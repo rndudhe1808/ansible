@@ -6,4 +6,7 @@
       package:
         name: apache2
         state: present
-    # Add more tasks as needed
+    - name: Enable Apache2 service
+      command: systemctl enable apache2
+    - name: Restart Apache2 service
+      command: systemctl restart apache2
