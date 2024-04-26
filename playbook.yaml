@@ -1,12 +1,34 @@
 ---
-- hosts: all
+- name: Install and enable Apache2 or httpd
+  hosts: all
   become: yes
   tasks:
-    - name: Ensure Apache is installed
-      package:
+    - name: Check the OS family
+      set_fact:
+        os_family: "{{ ansible_os_family }}"
+
+    - name: Install Apache2 on Debian-based systems
+      when: os_family == 'Debian'
+      apt:
         name: apache2
         state: present
-    - name: Enable Apache2 service
-      command: systemctl enable apache2
-    - name: Restart Apache2 service
-      command: systemctl restart apache2
+
+    - name: Install httpd on RPM-based systems
+      when: os_family == 'RedHat'
+      yum:
+        name: httpd
+        state: present
+
+    - name: Enable Apache2 service on Debian-based systems
+      when: os_family == 'Debian'
+      service:
+        name: apache2
+        enabled: yes
+        state: started
+
+    - name: Enable httpd service on RPM-based systems
+      when: os_family == 'RedHat'
+      service:
+        name: httpd
+        enabled: yes
+        state: started
