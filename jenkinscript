@@ -25,8 +25,8 @@ pipeline {
         stage('Check Apache Status') {
             steps {
                 // Check Apache status on specific hosts
-                sh 'ansible 192.168.56.130 -i inventory.yaml -m shell -a "systemctl status apache2"'
-                sh 'ansible 192.168.56.132 -i inventory.yaml -m shell -a "systemctl status apache2"'
+                sh 'ansible 192.168.56.130 -i inventory.yaml -m shell -a "systemctl status httpd"'
+                sh 'ansible 192.168.56.132 -i inventory.yaml -m shell -a "systemctl status httpd"'
             }
         }
     }
