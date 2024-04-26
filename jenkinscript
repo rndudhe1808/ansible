@@ -8,12 +8,25 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/rndudhe1808/ansible.git'
             }
         }
+        stage('Nodes Test') {
+            steps {
+                // Test connectivity to nodes and Ansible ping
+                sh 'ping -c 4 192.168.56.130'
+                sh 'ping -c 4 192.168.56.132'
+                sh 'ansible all -i inventory.yaml -m ping'
+            }
+        }
         stage('Run Ansible Playbook') {
             steps {
-                // Run Ansible playbook with inventory file and extra vars
-                script {
-                    sh 'ansible-playbook -i inventory.yaml playbook.yaml'
-                }
+                // Run Ansible playbook
+                sh 'ansible-playbook -i inventory.yaml playbook.yaml'
+            }
+        }
+        stage('Check Apache Status') {
+            steps {
+                // Check Apache status on specific hosts
+                sh 'ansible 192.168.56.130 -m shell -a "systemctl status apache2"'
+                sh 'ansible 192.168.56.132 -m shell -a "systemctl status apache2"'
             }
         }
     }
