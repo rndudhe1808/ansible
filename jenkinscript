@@ -19,14 +19,14 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 // Run Ansible playbook
-                sh 'ansible-playbook -i inventory.yaml playbook.yaml'
+                sh 'ansible-playbook -i inventory.yaml install_apache.yml'
             }
         }
         stage('Check Apache Status') {
             steps {
                 // Check Apache status on specific hosts
-                sh 'ansible 192.168.56.130 -m shell -a "systemctl status apache2"'
-                sh 'ansible 192.168.56.132 -m shell -a "systemctl status apache2"'
+                sh 'ansible 192.168.56.130 -i inventory.yaml -m shell -a "systemctl status apache2"'
+                sh 'ansible 192.168.56.132 -i inventory.yaml -m shell -a "systemctl status apache2"'
             }
         }
     }
