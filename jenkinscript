@@ -19,7 +19,7 @@ pipeline {
         stage('Run Ansible Playbook') {
             steps {
                 // Run Ansible playbook
-                sh 'ansible-playbook -i inventory.yaml '
+                sh 'ansible-playbook -i inventory.yaml playbook.yaml'
             }
         }
         stage('Check Apache Status') {
