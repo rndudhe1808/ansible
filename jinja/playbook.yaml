@@ -1,7 +1,10 @@
 ---
-- name: Print Hostname of All Nodes
+- name: jinja templates
   hosts: all
+  vars: 
+    - var1: Hello World
   tasks:
     - template:
         src: example.j2
         dest: /temp/result.txt
+...
