@@ -1,1 +1,7 @@
-
+---
+- name: Print Hostname of All Nodes
+  hosts: all
+  tasks:
+    - template:
+        src: example.j2
+        dest: /temp/result.txt
