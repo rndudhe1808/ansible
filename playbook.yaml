@@ -1,5 +1,5 @@
 ---
-- name: Install and enable Apache2 or httpd
+- name: Install and enable Apache2 or httpd.
   hosts: all
   become: yes
   tasks:
