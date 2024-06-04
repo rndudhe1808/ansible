@@ -19,7 +19,7 @@
         name: httpd
         state: present
 
-    - name: Enable Apache2 service on Debian-based systems
+    - name: Enable Apache2 service on Debian-based systems.
       when: os_family == 'Debian'
       service:
         name: apache2
